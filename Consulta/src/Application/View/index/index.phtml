@@ -1,0 +1,52 @@
+<?php $this->loadView("index/topo") ?>
+<div class="container">
+    <form class="form-horizontal" method="POST" action="http://localhost/consulta/index/pesquisa">
+    <fieldset>
+        <legend>Digite o número do processo</legend>
+
+        <p>
+            <label for="input-processo">Nº Processo:</label>
+            <input id="input-processo" type="text" name="n_processo" placeholder="____.___.___.____." value="<?= $this->n_processo ?>">
+        </p>
+
+        <button type="submit" id="btn_processo" class="btn">Entrar</button>
+
+    </fieldset>
+    </form>
+    <fieldset>
+        <legend>Dados do processo</legend>
+        
+        <label for="p-origem">Origem</label>
+        <input type="text" id="p-origem" value="<?= $this->origem ?>">
+        <label for="p-vara">Vara</label>
+        <input type="text" id="p-vara" value="<?= $this->vara ?>">
+        <label for="p-valorcausa">Valor causa</label>
+        <input type="text" id="p-valorcausa" value="<?= $this->valorcausa ?>">
+        
+    </fieldset>
+    <fieldset>
+        <legend>Partes</legend>
+        
+        <?php
+            $ipart = 0;
+            foreach($this->partes as $parte){
+        ?>
+                <label for="p-advogado">Parte</label>
+                <input type="text" id="p-parte<?=$ipart?>" value="<?= $parte ?>">
+                <label for="p-advogado">Advogado</label>
+                <?php
+                    $iadv = 0;
+                    foreach($this->parte[$ipart]->advogados as $advogado){
+                ?>
+                    <input type="text" id="<?= "p-advogado". $iadv . "-parte" . $ipart ?>" value="<?= $advogado ?>">
+                <?php
+                    $iadv++;
+                    }
+            $ipart++;
+            } 
+        ?>
+        
+    </fieldset>
+</div>
+
+<?php $this->loadView("index/rodape") ?>
